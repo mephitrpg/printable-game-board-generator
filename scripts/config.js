@@ -38,15 +38,16 @@ console.log('npx http-server --cors');
                     light: './images/chessboard-wood-tile-light.png',
                     mid: './images/chessboard-wood-tile-mid.jpg',
                     dark: './images/chessboard-wood-tile-dark.png',
+                    grid: './images/chessboard-wood-tile-dark.png',
                     boardBorder: './images/chessboard-wood-tile-dark.png'
                 },
-                'Black': { light: '#ffffff', mid: '#b0b0b0', dark: '#000000', boardBorder: '#000000' },
-                'Red': { light: '#ffffff', mid: '#e58a8a', dark: '#aa0000', boardBorder: '#aa0000' },
-                'Gray': { light: '#ffffff', mid: '#d7d7d7', dark: '#acacac', boardBorder: '#acacac' },
-                'Wikipedia': { light: '#ffce9e', mid: '#e8ab6f', dark: '#d18b47', boardBorder: '#d18b47' },
-                'LiChess.org': { light: '#f0d9b5', mid: '#d9b58a', dark: '#b58863', boardBorder: '#b58863' },
-                'Chess.com': { light: '#ebecd0', mid: '#aebd91', dark: '#739552', boardBorder: '#739552' },
-                'HexChess.com': { light: '#a5c8df', mid: '#80b1d0', dark: '#4180a9', boardBorder: '#4180a9' }
+                'Black': { light: '#ffffff', mid: '#b0b0b0', dark: '#000000', grid: '#000000', boardBorder: '#000000' },
+                'Red': { light: '#ffffff', mid: '#e58a8a', dark: '#aa0000', grid: '#aa0000', boardBorder: '#aa0000' },
+                'Gray': { light: '#ffffff', mid: '#d7d7d7', dark: '#acacac', grid: '#acacac', boardBorder: '#acacac' },
+                'Wikipedia': { light: '#ffce9e', mid: '#e8ab6f', dark: '#d18b47', grid: '#d18b47', boardBorder: '#d18b47' },
+                'LiChess.org': { light: '#f0d9b5', mid: '#d9b58a', dark: '#b58863', grid: '#b58863', boardBorder: '#b58863' },
+                'Chess.com': { light: '#ebecd0', mid: '#aebd91', dark: '#739552', grid: '#739552', boardBorder: '#739552' },
+                'HexChess.com': { light: '#a5c8df', mid: '#80b1d0', dark: '#4180a9', grid: '#4180a9', boardBorder: '#4180a9' }
                 
             };
             const config = {};

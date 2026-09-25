@@ -946,7 +946,9 @@ const canvas0 = document.querySelector('#preview0');
                 // It must never be halved merely because the board uses two sheets.
                 const { format: sheetFormat } = paperSize(global.config.format);
 
-                const doc0 = new jspdf.jsPDF({orientation: 'portrait', format: sheetFormat});
+                // A complete board is wider than it is tall, so the
+                // single-sheet PDF uses the selected paper in landscape too.
+                const doc0 = new jspdf.jsPDF({orientation: 'landscape', format: sheetFormat});
                 doc0.viewerPreferences({'HideWindowUI': true}, true);
                 const doc1 = new jspdf.jsPDF({orientation: 'landscape', format: sheetFormat });
                 
@@ -961,7 +963,11 @@ const canvas0 = document.querySelector('#preview0');
                 const SPLIT_IMAGE_WIDTH = Math.min(HF_LONG, HF_SHORT * 2 * BOARD.baseRatio);
                 const SPLIT_IMAGE_HEIGHT = SPLIT_IMAGE_WIDTH / (2 * BOARD.baseRatio);
                 const SPLIT_IMAGE_LEFT = (HF_LONG - SPLIT_IMAGE_WIDTH) / 2;
-                const SPLIT_IMAGE_TOP = (HF_SHORT - SPLIT_IMAGE_HEIGHT) / 2;
+                // The two landscape sheets form a foldable board: keep the
+                // first half against the top edge and the second against the
+                // bottom edge, leaving the joining area on opposite sides.
+                const SPLIT_IMAGE_TOP_FIRST = 0;
+                const SPLIT_IMAGE_TOP_SECOND = HF_SHORT - SPLIT_IMAGE_HEIGHT;
 
                 // Fit the complete board inside the actual single-sheet page.
                 const SINGLE_IMAGE_HEIGHT = Math.min(FF_SHORT, FF_LONG / BOARD.baseRatio);
@@ -994,7 +1000,7 @@ const canvas0 = document.querySelector('#preview0');
                         imageData: tempCanvas1.toDataURL('image/jpeg', 0.6),
                         format: 'JPEG',
                         x: DOC_LEFT + SPLIT_IMAGE_LEFT,
-                        y: DOC_TOP + SPLIT_IMAGE_TOP,
+                        y: DOC_TOP + SPLIT_IMAGE_TOP_FIRST,
                         width: SPLIT_IMAGE_WIDTH,
                         height: SPLIT_IMAGE_HEIGHT
                     });
@@ -1009,7 +1015,7 @@ const canvas0 = document.querySelector('#preview0');
                         imageData: tempCanvas2.toDataURL('image/jpeg', 0.6),
                         format: 'JPEG',
                         x: DOC_LEFT + SPLIT_IMAGE_LEFT,
-                        y: DOC_TOP + SPLIT_IMAGE_TOP,
+                        y: DOC_TOP + SPLIT_IMAGE_TOP_SECOND,
                         width: SPLIT_IMAGE_WIDTH,
                         height: SPLIT_IMAGE_HEIGHT
                     });
