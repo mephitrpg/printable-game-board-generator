@@ -9,7 +9,7 @@ This is a dependency-free static web app. Open `index.html` in a modern browser 
 For browser features that require an HTTP origin, serve this folder with any static-file server. For example, in a terminal with Python installed:
 
 ```bash
-python -m http.server 8000
+npx http-server
 ```
 
 Then open `http://localhost:8000`.
