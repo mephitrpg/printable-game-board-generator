@@ -6,7 +6,7 @@ A browser-based tool for designing printable square and hexagonal game boards. I
 
 This is a dependency-free static web app. Open `index.html` in a modern browser to use it.
 
-For browser features that require an HTTP origin, serve this folder with any static-file server. For example, in a terminal with Python installed:
+For browser features that require an HTTP origin, serve this folder with any static-file server. For example, in a terminal with Node installed:
 
 ```bash
 npx http-server
