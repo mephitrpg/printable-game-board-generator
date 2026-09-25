@@ -484,7 +484,7 @@ const canvas0 = document.querySelector('#preview0');
                     } else {
                         ctx.rect(left, top, BOARD.size.width, BOARD.size.height);
                     }
-                    ctx.strokeStyle = global.config.boardBorder;
+                    ctx.strokeStyle = getBorderColor('boardBorder');
                     ctx.stroke();
                 }
 
@@ -532,6 +532,13 @@ const canvas0 = document.querySelector('#preview0');
                     return THEMES[global.config.theme] || THEMES.Wood;
                 }
 
+                function getBorderColor(configKey) {
+                    const configuredValue = global.config[configKey];
+                    return configuredValue === 'theme'
+                        ? (getThemeValues()[configKey] || '')
+                        : configuredValue;
+                }
+
                 function getThemeTile(c, r) {
                     const theme = getThemeValues();
                     const tiles = global.config.cellShape === 'square'
@@ -546,6 +553,10 @@ const canvas0 = document.querySelector('#preview0');
 
                 function getThemeImage(value) {
                     return window.onloadResources[value]?.img;
+                }
+
+                function isUsableThemeImage(image) {
+                    return image?.complete && image.naturalWidth > 0;
                 }
 
                 function loadThemeImage(url) {
@@ -571,8 +582,10 @@ const canvas0 = document.querySelector('#preview0');
 
                 function drawCellThemeValue(ctx, value, c, r) {
                     const image = getThemeImage(value);
-                    if (image) drawCellImage(ctx, image, c, r);
-                    else fillCell(ctx, c, r, value || '#ffffff');
+                    if (isUsableThemeImage(image)) drawCellImage(ctx, image, c, r);
+                    // A URL may be present even when its image failed to load;
+                    // it cannot be used as a canvas fill style, so fall back.
+                    else fillCell(ctx, c, r, image ? '#ffffff' : (value || '#ffffff'));
                 }
 
                 function drawClippedBoardImage(ctx, image) {
@@ -795,19 +808,20 @@ const canvas0 = document.querySelector('#preview0');
                         const cellValue = global.config.inverted ? darkCellValue : lightCellValue;
                         const image = getThemeImage(cellValue);
                         if (global.config.cellShape === 'hexagon') {
-                            if (image) drawClippedBoardImage(ctx0, image);
+                            if (isUsableThemeImage(image)) drawClippedBoardImage(ctx0, image);
                             else for (let r = 0; r < rows; r++) for (let c = 0; c < hexCellCount(r); c++) {
-                                if (isHexCellActive(c, r)) fillCell(ctx0, c, r, cellValue);
+                                if (isHexCellActive(c, r)) fillCell(ctx0, c, r, image ? '#ffffff' : cellValue);
                             }
                         } else {
                             ctx0.beginPath();
                             ctx0.rect(BOARD.margin.x + BOARD.padding.x, BOARD.margin.y + BOARD.padding.y, BOARD.size.width, BOARD.size.height);
-                            if (image) ctx0.drawImage(image, BOARD.margin.x + BOARD.padding.x, BOARD.margin.y + BOARD.padding.y, BOARD.size.width, BOARD.size.height);
-                            else { ctx0.fillStyle = cellValue || '#ffffff'; ctx0.fill(); }
+                            if (isUsableThemeImage(image)) ctx0.drawImage(image, BOARD.margin.x + BOARD.padding.x, BOARD.margin.y + BOARD.padding.y, BOARD.size.width, BOARD.size.height);
+                            else { ctx0.fillStyle = image ? '#ffffff' : (cellValue || '#ffffff'); ctx0.fill(); }
                         }
                     }
 
-                if (global.config.grid) {
+                const gridColor = getBorderColor('grid');
+                if (gridColor) {
                     ctx0.filter = 'none';
                     if (global.config.cellShape === 'hexagon') {
                         for (let r = 0; r < rows; r++) {
@@ -815,7 +829,7 @@ const canvas0 = document.querySelector('#preview0');
                             for (let c = 0; c < rowCellCount; c++) {
                                 if (!isHexCellActive(c, r)) continue;
                                 cellPath(ctx0, c, r);
-                                ctx0.strokeStyle = global.config.grid;
+                                ctx0.strokeStyle = gridColor;
                                 ctx0.stroke();
                             }
                         }
@@ -837,13 +851,13 @@ const canvas0 = document.querySelector('#preview0');
                             ctx0.moveTo(start.x, start.y);
                             ctx0.lineTo(start.x + BOARD.size.width, start.y);
                         }
-                        ctx0.strokeStyle = global.config.grid;
+                        ctx0.strokeStyle = gridColor;
                         ctx0.stroke();
 
                                             }
                 }
 
-                if (global.config.boardBorder) {
+                if (getBorderColor('boardBorder')) {
                     drawBoardBorder(ctx0);
                 }
 
@@ -1060,7 +1074,9 @@ const canvas0 = document.querySelector('#preview0');
 
             function ui() {
                 load();
-                Object.values(global.config.customTextureTheme).forEach(loadThemeImage);
+                // Border colours are also theme properties, but only the cell
+                // texture values are image URLs.
+                ['light', 'mid', 'dark'].forEach(key => loadThemeImage(global.config.customTextureTheme[key]));
                 const uiElement = document.getElementById('ui');
                 const NUMBER_INPUT_DEBOUNCE_MS = 300;
                 let numberInputTimer;
@@ -1314,25 +1330,42 @@ const canvas0 = document.querySelector('#preview0');
                     });
                 });
 
-                const gridElements = uiElement.querySelectorAll('[name="config-grid"]');
-                gridElements.forEach(input => {
-                    input.checked = global.config.grid === input.value;
-                    input.addEventListener('change', event => {
-                        global.config.grid = event.target.value;
-                        save();
-                        generate();
-                    });
-                });
+                const setupBorderColorControls = (radioName, colorInputId, configKey) => {
+                    const elements = uiElement.querySelectorAll(`[name="${radioName}"]`);
+                    const customRadio = uiElement.querySelector(`[name="${radioName}"][data-custom-color-radio]`);
+                    const colorInput = uiElement.querySelector(`#${colorInputId}`);
+                    const presetColors = Array.from(elements)
+                        .filter(input => input !== customRadio)
+                        .map(input => input.value);
+                    const configuredColor = global.config[configKey];
 
-                const boardBorderElements = uiElement.querySelectorAll('[name="config-board-border"]');
-                boardBorderElements.forEach(input => {
-                    input.checked = global.config.boardBorder === input.value;
-                    input.addEventListener('change', event => {
-                        global.config.boardBorder = event.target.value;
+                    // Saved non-preset colours are represented by the custom
+                    // option, so existing local settings remain editable.
+                    if (!presetColors.includes(configuredColor) && /^#[0-9a-f]{6}$/i.test(configuredColor)) {
+                        colorInput.value = configuredColor;
+                        customRadio.value = configuredColor;
+                    }
+                    elements.forEach(input => {
+                        input.checked = global.config[configKey] === input.value;
+                    });
+                    elements.forEach(input => {
+                        input.addEventListener('change', event => {
+                            global.config[configKey] = event.target.value;
+                            save();
+                            generate();
+                        });
+                    });
+                    colorInput.addEventListener('input', event => {
+                        customRadio.value = event.target.value;
+                        customRadio.checked = true;
+                        global.config[configKey] = event.target.value;
                         save();
                         generate();
                     });
-                });
+                };
+
+                setupBorderColorControls('config-grid', 'config-grid-custom-color', 'grid');
+                setupBorderColorControls('config-board-border', 'config-board-border-custom-color', 'boardBorder');
 
                 const cellShapeElements = uiElement.querySelectorAll('[name="config-cell-shape"]');
                 const sizeModeElement = uiElement.querySelector('[name="config-size-mode"]');

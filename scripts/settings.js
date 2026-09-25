@@ -12,10 +12,10 @@ const defaultSettings = {
                     split: 2,
                     cellShape: 'square',
                     theme: 'Wood',
-                    customTheme: { light: '#ffffff', mid: '#808080', dark: '#000000' },
-                    customTextureTheme: { light: '', mid: '', dark: '' },
+                    customTheme: { light: '#ffffff', mid: '#808080', dark: '#000000', grid: '', boardBorder: '#000000' },
+                    customTextureTheme: { light: '', mid: '', dark: '', grid: '', boardBorder: '#000000' },
                     grid: '',
-                    boardBorder: '#000000',
+                    boardBorder: 'theme',
                     checkered: true,
                     inverted: false
                 }
