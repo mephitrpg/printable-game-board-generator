@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<!-- Configurable chessboard and abstract board generator with printable layouts and styling options. -->
+<html>
+    <head>
+        <link rel="stylesheet" href="styles/main.css">
+        <script src="scripts/config.js"></script>
+        <script src="scripts/settings.js"></script>
+        <title>Printable Game Board Generator</title>
+    </head>
+    <body>
+        <div id="main-grid"> 
+            <div class="main-controls">
+                <h1>Printable Game Board Generator</h1>
+                <p>The main purpose of this tool is to generate and print paper game boards on one A3 or two A4 sheets. Other paper formats are supported.</p>
+                <div id="ui" class="ui">
+                    <div>
+                        <div>
+                            Cell shape
+                        </div>
+                        <div>
+                            <label><input type="radio" name="config-cell-shape" value="square" checked> Square</label>
+                            <label><input type="radio" name="config-cell-shape" value="hexagon"> Hexagon</label>
+                        </div>
+                    </div>
+                    <div id="config-hex-orientation-row">
+                        <div>
+                            Hexagon top
+                        </div>
+                        <div>
+                            <label><input type="radio" name="config-hex-orientation" value="vertex" checked> Vertex</label>
+                            <label><input type="radio" name="config-hex-orientation" value="side"> Side</label>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            Board size
+                        </div>
+                        <div>
+                            <select name="config-size-mode"><option value="side" selected>1 side</option><option value="grid">2 sides</option><option value="depth">3 sides</option></select>
+                            &#129106;
+                            <span class="config-size-dimension"><input type="number" id="config-cells-per-side" name="config-cells-per-side" value="" min="1"></span>
+                            <span class="config-size-separator">&times;</span>
+                            <span class="config-size-dimension"><input type="number" id="config-size-rows" name="config-size" value="" min="1"></span>
+                            <span class="config-size-separator">&times;</span>
+                            <span class="config-size-dimension"><input type="number" id="config-size-third" name="config-size" value="" min="1"></span>
+                        </div>
+                    </div>
+                    <div class="noborder nopadding">
+                        <div>
+                            <label><input type="radio" id="config-sameSize-contain" name="config-sameSize" value="contain" checked> Keep aspect ratio</label>
+                        </div>
+                        <div></div>
+                    </div>
+                    <div class="noborder nopadding">
+                        <div>
+                            <label><input type="radio" id="config-sameSize-cover" name="config-sameSize" value="cover"> Stretch</label>
+                        </div>
+                        <div></div>
+                    </div>
+                    <div class="noborder nopaddingtop">
+                        <div>
+                            <label><input type="radio" id="config-sameSize-diff" name="config-sameSize" value="diff"> Guide grid</label>
+                        </div>
+                        <div>
+                            <label><input type="checkbox" id="config-show-guide-grid"> Show</label>
+                            &#129106;
+                            <span class="config-base-size-dimension"><input type="number" id="config-baseSize-columns" name="config-baseSize" value=""></span>
+                            <span class="config-base-size-separator">&times;</span>
+                            <span class="config-base-size-dimension"><input type="number" id="config-baseSize-rows" name="config-baseSize" value=""></span>
+                            <span class="config-base-size-separator">&times;</span>
+                            <span class="config-base-size-dimension"><input type="number" id="config-baseSize-third" name="config-baseSize" value=""></span>
+                        </div>
+                    </div>
+                    <div id="config-theme-row">
+                        <div>
+                            Theme
+                        </div>
+                        <div>
+                            <select id="config-theme"></select>
+                        </div>
+                    </div>
+                    <div class="noborder" id="config-custom-theme-row">
+                        <div>Colors</div>
+                        <div>
+                            <label>Light <input type="color" name="config-custom-theme" data-theme-key="light"></label><br>
+                            <label>Mid <input type="color" name="config-custom-theme" data-theme-key="mid"></label><br>
+                            <label>Dark <input type="color" name="config-custom-theme" data-theme-key="dark"></label><br>
+                        </div>
+                    </div>
+                    <div class="noborder" id="config-custom-texture-theme-row">
+                        <div>Textures</div>
+                        <div>
+                            <label>Light <input type="url" name="config-custom-texture-theme" data-theme-key="light" placeholder="Image URL"></label><br>
+                            <label>Mid <input type="url" name="config-custom-texture-theme" data-theme-key="mid" placeholder="Image URL"></label><br>
+                            <label>Dark <input type="url" name="config-custom-texture-theme" data-theme-key="dark" placeholder="Image URL"></label><br>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            Checkered
+                        </div>
+                        <div>
+                            <label><input type="radio" name="config-checkered" value=""> no</label>
+                            <label><input type="radio" name="config-checkered" value="1" checked> yes</label>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            Inverted
+                        </div>
+                        <div>
+                            <label><input type="radio" name="config-inverted" value="" checked> no</label>
+                            <label><input type="radio" name="config-inverted" value="1"> yes</label>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            Cells' border
+                        </div>
+                        <div>
+                            <label><input type="radio" name="config-grid" value="" checked> no</label>
+                            <label><input type="radio" name="config-grid" value="#000000"> black</label>
+                            <label><input type="radio" name="config-grid" value="#ffffff"> white</label>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            Board's border
+                        </div>
+                        <div>
+                            <label><input type="radio" name="config-board-border" value=""> no</label>
+                            <label><input type="radio" name="config-board-border" value="#000000" checked> black</label>
+                            <label><input type="radio" name="config-board-border" value="#ffffff"> white</label>
+                        </div>
+                    </div>
+                    <h2>Sheet</h2>
+                    <div>
+                        <div>
+                            Format
+                        </div>
+                        <div>
+                            <select id="config-format">
+                                <option value="a0">A0</option>
+                                <option value="a1">A1</option>
+                                <option value="a2">A2</option>
+                                <option value="a3">A3</option>
+                                <option value="a4" selected>A4</option>
+                                <option value="a5">A5</option>
+                                <option value="a6">A6</option>
+                                <option value="a7">A7</option>
+                                <option value="a8">A8</option>
+                                <option value="a9">A9</option>
+                                <option value="a10">A10</option>
+                                <option value="b0">B0</option>
+                                <option value="b1">B1</option>
+                                <option value="b2">B2</option>
+                                <option value="b3">B3</option>
+                                <option value="b4">B4</option>
+                                <option value="b5">B5</option>
+                                <option value="b6">B6</option>
+                                <option value="b7">B7</option>
+                                <option value="b8">B8</option>
+                                <option value="b9">B9</option>
+                                <option value="b10">B10</option>
+                                <option value="c0">C0</option>
+                                <option value="c1">C1</option>
+                                <option value="c2">C2</option>
+                                <option value="c3">C3</option>
+                                <option value="c4">C4</option>
+                                <option value="c5">C5</option>
+                                <option value="c6">C6</option>
+                                <option value="c7">C7</option>
+                                <option value="c8">C8</option>
+                                <option value="c9">C9</option>
+                                <option value="c10">C10</option>
+                                <option value="dl">dl</option>
+                                <option value="letter">letter</option>
+                                <option value="government-letter">government-letter</option>
+                                <option value="legal">legal</option>
+                                <option value="junior-legal">junior-legal</option>
+                                <option value="ledger">ledger</option>
+                                <option value="tabloid">tabloid</option>
+                                <option value="credit-card">credit-card</option>
+                                <option value="custom">Custom size</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="noborder" id="config-custom-format-row">
+                        <div>
+                            Size
+                        </div>
+                        <div>
+                            Width <input type="number" id="config-custom-format-width" min="1" step="0.1"> mm<br>                            
+                            Height <input type="number" id="config-custom-format-height" min="1" step="0.1"> mm<br>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            Number of sheets
+                        </div>
+                        <div>
+                            <label><input type="radio" name="config-split" value="1"> 1</label>
+                            <label><input type="radio" name="config-split" value="2" checked> 2</label>
+                        </div>
+                    </div>
+                    <div class="noborder">
+                        <div><button value="0" id="pdf-preview-button">Toggle PDF Preview</button></div>
+                        <div></div>
+                    </div>
+                </div>
+                <h2>Special boards</h2>
+                <p>Here are some well-known boards that cannot be recreated with this tool, as well as boards that have been manually edited for a better appearance.</p>
+                <ul>
+                    <li><a href="./templates/abstract games board template empty.psd">abstract games board template empty.psd</a></li>
+                </ul>
+                <table id="special-boards" class="special-boards">
+                    <tr>
+                        <th>Game</th>
+                        <th class="special-board-column-start" colspan="2">A3</th>
+                        <th class="special-board-column-start" colspan="2">A4</th>
+                    </tr>
+                </table>
+                <script>{
+                    const specialBoards = document.getElementById('special-boards');
+                    [
+                        {key: '9mm', name: 'Nine Man\'s Morris', hasColor: true},
+                        {key: '9mmd', name: 'Nine Man\'s Morris with diagonals'},
+                        {key: 'backgammon', name: 'Backgammon'},
+                        {key: 'cant-stop', name: 'Can\'t Stop'},
+                        {key: 'chinese-checkers', name: 'Chinese Checkers / Sternhalma', hasBW: false, hasColor: true},
+                        {key: 'halma', name: 'Halma'},
+                        {key: 'hex', name: 'Hex', hasColor: true},
+                        {key: 'quarto', name: 'Quarto!', hasBW: false, hasColor: true},
+                        {key: 'shobu', name: 'Shobu', hasColor: true},
+                    ].sort((firstBoard, secondBoard) =>
+                        firstBoard.name.localeCompare(secondBoard.name, undefined, {
+                            numeric: true,
+                            sensitivity: 'base'
+                        })
+                    ).forEach(specialBoard=>{
+                        const hasColor = specialBoard.hasColor ?? false;
+                        const hasBW = specialBoard.hasBW ?? true;
+                        const tr = document.createElement('tr');
+                        tr.insertAdjacentHTML('beforeend', `<td>${specialBoard.name}</td>`);
+                        ['A3', 'A4'].forEach(format=>{
+                            if (hasBW) {
+                                tr.insertAdjacentHTML('beforeend', `<td class="special-board-column-start"><a href="./boards/${specialBoard.key}/${specialBoard.key}-${format}-bw.pdf" target="_blank">Black & White</a></td>`);
+                            } else {
+                                tr.insertAdjacentHTML('beforeend', `<td class="special-board-column-start special-board-not-available">Black & White</td>`);
+                            }
+                            if (hasColor) {
+                                tr.insertAdjacentHTML('beforeend', `<td><a href="./boards/${specialBoard.key}/${specialBoard.key}-${format}-color.pdf" target="_blank">Color</a></td>`);
+                            } else {
+                                tr.insertAdjacentHTML('beforeend', `<td class="special-board-not-available">Color</td>`);
+                            }
+
+                        })
+                        specialBoards.append(tr);
+                    });                
+                }</script>
+                
+
+                <h2>Game rules</h2>
+                <p>You can keep the boards and game rules in plastic sleeves in a ring binder.</p>
+                <ul>
+                    <li><a href="https://www.pergioco.net/archivio-newsletter-astratti-pergioco.html" target="_blank">Italian rules</a></li>
+                    <li><a href="./templates/abstract games rules separator.psd">abstract games rules separator.psd</a></li>
+                </ul>
+                <p><a href="./images/ring-binder.jpg" target="_blank"><img src="./images/ring-binder.jpg" height="100"></a></p>
+
+                <h2>About</h2>
+                <p>This tool was created for printing paper game boards. Both A4 and A3 paper sizes are compatible with the following widely available 32cm (12.6in) magnetic chessboard. Some models also include Backgammon.</p>
+                <p><a href="./images/product-chess.jpg" target="_blank"><img src="./images/product-chess.jpg" height="100"></a></p>
+                <p>One A3 sheet, or two A4 sheets, fit the chessboard’s size. You can protect your printed boards with plastic sheets available at most stationery shops. Laser prints are more prone to scratching.</p>
+                <p>LEXIBOOK sells a lovely set containing many additional components:</p>
+                <ul>
+                    <li><a href="https://www.amazon.it/Lexibook-Scacchi-Serpenti-delloca-Backgammon/dp/B08SBNNX8N" target="_blank">Italy – Lexibook chessboard</a></li>
+                    <li><a href="https://www.amazon.com/Lexibook-Checkers-Backgammon-Chinese-Ladders/dp/B0C9M8QMLG" target="_blank">United States – Lexibook chessboard</a></li>
+                </ul>
+
+                <p>To complete the kit, I also recommend this magnetic Reversi/Othello set, which provides extra pieces for even more games. Its size is 25mm (9.84in), and pieces measure 23.7mm in diameter and 6mm in height.</p>
+                <p><a href="./images/product-reversi.jpg" target="_blank"><img src="./images/product-reversi.jpg" height="100"></a></p>
+
+                <p>You can also buy other magnetic sets (Shogi, Go, Xiangqi, and more), or make your own using in example 19mm coin capsules with 10mm x 2mm neodymium magnets and a 0.75in circle cutter.</p>
+            </div>
+            <div class="bg board-preview">
+                        <canvas id="preview0" width="3508" height="3508"></canvas>
+                        <!--
+                        <canvas id="preview1" width="3508" height="3508"></canvas>
+                        -->
+            </div>
+            <div id="pdf-preview">
+                <p id="pdf-preview-status" role="status">Preparing PDF preview…</p>
+                <iframe id="pdfiframe0" title="PDF preview"></iframe>
+            </div>
+        </div>
+        <script src="scripts/pdf-preview.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="scripts/app.js"></script>
+    </body>
+</html>
