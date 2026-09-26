@@ -42,8 +42,9 @@ console.log('npx http-server --cors');
                     boardBorder: '#7b4a27'
                 },
                 'Black': { light: '#ffffff', mid: '#b0b0b0', dark: '#000000', grid: '#000000', boardBorder: '#000000' },
-                'Red': { light: '#ffffff', mid: '#e58a8a', dark: '#aa0000', grid: '#aa0000', boardBorder: '#aa0000' },
                 'Gray': { light: '#ffffff', mid: '#d7d7d7', dark: '#acacac', grid: '#acacac', boardBorder: '#acacac' },
+                'Light gray': { light: '#ffffff', mid: '#ebebeb', dark: '#d6d6d6', grid: '#acacac', boardBorder: '#acacac' },
+                'Red': { light: '#ffffff', mid: '#e58a8a', dark: '#aa0000', grid: '#aa0000', boardBorder: '#aa0000' },
                 'Green': { light: '#ffffff', mid: '#80c5a2', dark: '#008a44', grid: '#008a44', boardBorder: '#008a44' },
                 'Wikipedia': { light: '#ffce9e', mid: '#e8ab6f', dark: '#d18b47', grid: '#d18b47', boardBorder: '#d18b47' },
                 'LiChess.org': { light: '#f0d9b5', mid: '#d9b58a', dark: '#b58863', grid: '#b58863', boardBorder: '#b58863' },
