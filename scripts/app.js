@@ -526,11 +526,11 @@ const canvas0 = document.querySelector('#preview0');
                     const theme = getThemeValues();
                     const tiles = global.config.cellShape === 'square'
                         ? (global.config.inverted
-                            ? [theme.dark, theme.light]
-                            : [theme.light, theme.dark])
+                            ? [theme.light, theme.dark]
+                            : [theme.dark, theme.light])
                         : (global.config.inverted
-                            ? [theme.dark, theme.mid, theme.light]
-                            : [theme.light, theme.mid, theme.dark]);
+                            ? [theme.light, theme.mid, theme.dark]
+                            : [theme.dark, theme.mid, theme.light]);
                     return tiles[getCheckeredIndex(c, r)];
                 }
 
@@ -774,11 +774,11 @@ const canvas0 = document.querySelector('#preview0');
                     const lightCellValue = theme.light;
                     const cellColors = global.config.cellShape === 'square'
                         ? (global.config.inverted
-                            ? [darkCellValue, lightCellValue]
-                            : [lightCellValue, darkCellValue])
+                            ? [lightCellValue, darkCellValue]
+                            : [darkCellValue, lightCellValue])
                         : (global.config.inverted
-                            ? [darkCellValue, midCellValue, lightCellValue]
-                            : [lightCellValue, midCellValue, darkCellValue]);
+                            ? [lightCellValue, midCellValue, darkCellValue]
+                            : [darkCellValue, midCellValue, lightCellValue]);
                     if (global.config.checkered) {
                         for (let r = 0; r < rows; r++) {
                             const rowCellCount = global.config.cellShape === 'hexagon' ? hexCellCount(r) : columns;
@@ -788,7 +788,7 @@ const canvas0 = document.querySelector('#preview0');
                             }
                         }
                     } else {
-                        const cellValue = global.config.inverted ? darkCellValue : lightCellValue;
+                        const cellValue = global.config.inverted ? lightCellValue : darkCellValue;
                         const image = getThemeImage(cellValue);
                         if (global.config.cellShape === 'hexagon') {
                             if (isUsableThemeImage(image)) drawClippedBoardImage(ctx0, image);
