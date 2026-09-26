@@ -8,7 +8,7 @@
         <title>Printable Game Board Generator</title>
     </head>
     <body>
-        <div id="main-grid"> 
+        <div id="main-grid" class="mobile-pdf-preview-closed">
             <div class="main-controls">
                 <h1>Printable Game Board Generator</h1>
                 <p>The main purpose of this tool is to generate and print paper abstract games' boards on one A3 or two A4 sheets. Other paper formats are supported.</p>
@@ -300,7 +300,13 @@
                         -->
             </div>
             <div id="pdf-preview">
+                <div id="pdf-preview-actions">
+                    <a href="javascript:window.print();">PRINT</a>
+                    <a id="pdf-download" download="game-board.pdf">DOWNLOAD PDF</a>
+                    <span id="pdf-preview-close-container"><button type="button" id="pdf-preview-close" aria-label="Close PDF preview">×</button></span>
+                </div>
                 <p id="pdf-preview-status" role="status">Preparing PDF preview…</p>
+                <div id="pdf-preview-pages" aria-label="PDF pages"></div>
                 <iframe id="pdfiframe0" title="PDF preview"></iframe>
             </div>
         </div>

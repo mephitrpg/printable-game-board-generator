@@ -1,22 +1,5 @@
 const canvas0 = document.querySelector('#preview0');
             // const canvas1 = document.querySelector('#preview1');
-            const iframe0 = document.querySelector('#pdfiframe0');
-            const pdfPreviewElement = document.querySelector('#pdf-preview');
-            const pdfPreviewStatus = document.querySelector('#pdf-preview-status');
-            let pdfPreviewUrl = null;
-
-            function setPdfPreview(blob) {
-                if (pdfPreviewUrl) URL.revokeObjectURL(pdfPreviewUrl);
-                pdfPreviewUrl = URL.createObjectURL(blob);
-                iframe0.src = pdfPreviewUrl;
-                pdfPreviewElement.classList.remove('is-loading');
-                pdfPreviewElement.classList.add('is-ready');
-            }
-
-            function setPdfPreviewError(error) {
-                pdfPreviewElement.classList.remove('is-loading', 'is-ready');
-                pdfPreviewStatus.textContent = `PDF preview unavailable: ${error.message}`;
-            }
             const iframe1 = document.querySelector('#pdfiframe1');
             const iframe2 = document.querySelector('#pdfiframe2');
             canvas0.crossOrigin="anonymous";
@@ -905,8 +888,8 @@ const canvas0 = document.querySelector('#preview0');
                 if (!window.jspdf || !window.jspdf.jsPDF) {
                     throw new Error('The PDF library did not load. Check your internet connection and reload the page.');
                 }
-                pdfPreviewElement.classList.remove('is-ready');
-                pdfPreviewElement.classList.add('is-loading');
+                pdfPreviewPanel.classList.remove('is-ready');
+                pdfPreviewPanel.classList.add('is-loading');
                 pdfPreviewStatus.textContent = 'Preparing PDF preview…';
                 const paperSize = (format) => {
                     const result = { format };
