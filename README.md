@@ -14,13 +14,9 @@ npx http-server
 
 Then open `http://localhost:8000`.
 
-## Project layout
+## Demo
 
-- `index.html` — application UI, board-rendering logic, and styling.
-- `img/` — board textures and image assets.
-- `boards/` — generated/example printable boards.
-- `rules/` — game rules and reference PDFs.
-- `templates/` and `assets/` — source design assets.
+https://mephitrpg.github.io/printable-game-board-generator/
 
 ## Notes
 
