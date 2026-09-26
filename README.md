@@ -15,9 +15,3 @@ npx http-server
 ```
 
 Then open `http://localhost:8000`.
-
-## Notes
-
-The app loads jsPDF from a CDN for PDF generation, so exporting PDFs needs an internet connection unless that dependency is later vendored locally.
-
-On mobile, the preview loads PDF.js from a CDN and renders the generated PDF inside the page. Download PDF saves the same document. Desktop browsers with native PDF support use the embedded viewer.
