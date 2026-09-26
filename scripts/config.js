@@ -38,8 +38,8 @@ console.log('npx http-server --cors');
                     light: './images/chessboard-wood-tile-light.png',
                     mid: './images/chessboard-wood-tile-mid.jpg',
                     dark: './images/chessboard-wood-tile-dark.png',
-                    grid: './images/chessboard-wood-tile-dark.png',
-                    boardBorder: './images/chessboard-wood-tile-dark.png'
+                    grid: '#7b4a27',
+                    boardBorder: '#7b4a27'
                 },
                 'Black': { light: '#ffffff', mid: '#b0b0b0', dark: '#000000', grid: '#000000', boardBorder: '#000000' },
                 'Red': { light: '#ffffff', mid: '#e58a8a', dark: '#aa0000', grid: '#aa0000', boardBorder: '#aa0000' },
