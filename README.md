@@ -2,6 +2,8 @@
 
 A browser-based tool for designing printable square and hexagonal game boards. It includes page sizing, themes, grid configuration, and PDF export.
 
+https://mephitrpg.github.io/printable-game-board-generator/
+
 ## Getting started
 
 This is a dependency-free static web app. Open `index.html` in a modern browser to use it.
@@ -13,10 +15,6 @@ npx http-server
 ```
 
 Then open `http://localhost:8000`.
-
-## Demo
-
-https://mephitrpg.github.io/printable-game-board-generator/
 
 ## Notes
 
