@@ -209,11 +209,11 @@
                     </div>
                 </div>
                 <h2>Special boards</h2>
-                <p>Here are some well-known abstract games' boards that cannot be recreated with this tool, as well as boards that have been manually edited for a better appearance.</p>
+                <p>Here is a template for creating your own special boards that cannot be generated with this tool.</p>
                 <ul>
                     <li><a href="./templates/abstract games board template empty.psd">abstract games board template empty.psd</a></li>
                 </ul>
-                <button type="button" id="special-boards-toggle" aria-controls="special-boards" aria-expanded="false">Show special boards table</button>
+                <p>Here are some well-known abstract games' boards that cannot be recreated with this tool, as well as boards that have been generated and manually edited for a better appearance. <a href="#special-boards" id="special-boards-toggle" aria-controls="special-boards" aria-expanded="false">Show more</a></p>
                 <table id="special-boards" class="special-boards" hidden>
                     <tr>
                         <th>Game</th>
@@ -262,11 +262,12 @@
                 <script>
                     const specialBoardsToggle = document.getElementById('special-boards-toggle');
                     const specialBoardsTable = document.getElementById('special-boards');
-                    specialBoardsToggle.addEventListener('click', () => {
+                    specialBoardsToggle.addEventListener('click', event => {
+                        event.preventDefault();
                         const isVisible = specialBoardsToggle.getAttribute('aria-expanded') === 'true';
                         specialBoardsTable.hidden = isVisible;
                         specialBoardsToggle.setAttribute('aria-expanded', String(!isVisible));
-                        specialBoardsToggle.textContent = isVisible ? 'Show special boards table' : 'Hide special boards table';
+                        specialBoardsToggle.textContent = isVisible ? 'Show more' : 'Show less';
                     });
                 </script>
                 
@@ -278,24 +279,27 @@
                 </ul>
                 <p>You can keep the boards and game rules in plastic sleeves in a ring binder.</p>
                 <p><a href="./images/ring-binder.jpg" target="_blank"><img src="./images/ring-binder.jpg" height="100"></a></p>
+                
+                <h2>The Board</h2>
                 <p>To make an A3 foldable square board from two A4 sheets, cut away the joining margin from one sheet. Fold the corresponding margin on the other sheet to form a tab, then glue the trimmed sheet to it. The finished board fits in a plastic sleeve in a ring binder.</p>
                 <p><a href="./images/build-board.jpg" target="_blank"><img src="./images/build-board.jpg" height="100"></a></p>
                 <p>You can even protect your printed boards with plastic sheets available at most stationery shops. Note that laser prints are more prone to scratching.</p>
-                
-                <h2>About</h2>
-                <p>This tool was created for printing paper A3 square game boards, compatible with the following widely available 32 cm (12.6 in) magnetic chessboard. Some models also include Backgammon.</p>
+                <p>You can use the printed boards on their own with pieces you already have or have made, but pairing them with the widely available 32 cm (12.6 in) magnetic chessboard shown below can be a more practical option. Some models also include a backgammon board.</p>
                 <p><a href="./images/product-chess.jpg" target="_blank"><img src="./images/product-chess.jpg" height="100"></a></p>
                 <p>LEXIBOOK sells a well-equipped set containing many additional components. <a href="https://www.amazon.com/Lexibook-Checkers-Backgammon-Chinese-Ladders/dp/B0C9M8QMLG" target="_blank">Amazon.com</a> - <a href="https://www.amazon.it/Lexibook-Scacchi-Serpenti-delloca-Backgammon/dp/B08SBNNX8N" target="_blank">Amazon.it</a></p>
-                <p><a href="./images/product-lexibook.jpg" target="_blank"><img src="./images/product-lexibook.jpg" height="100"></a></p>                
-                <p>To complete the kit, I also recommend this magnetic Reversi/Othello set solely to obtain plenty of additional pieces.</p>
+                <p><a href="./images/product-lexibook.jpg" target="_blank"><img src="./images/product-lexibook.jpg" height="100"></a></p>
+                
+                <h2>The Pieces</h2>
+                <p>In addition to the pieces included with the board above, I recommend this magnetic Reversi/Othello set as an inexpensive way to get plenty of extra pieces.</p>
                 <p><a href="./images/product-reversi.jpg" target="_blank"><img src="./images/product-reversi.jpg" height="100"></a></p>
-                <p>It measures 25 cm (9.84 in), and the pieces measure 23.7 mm in diameter and 6 mm in height.  Given the size of its pieces, a square A3 board generated by this web app can accommodate up to 11 x 11 cells, the size of the Hnefatafl game board.</p>
+                <p>The board measures 25 cm (9.84 in), and its pieces are a good match for the board above: they are 23.7 mm in diameter and 6 mm tall.</p>
+                <p>With pieces of this size, a square A3 board generated by this web app can fit up to 11 × 11 cells, the standard size for a Hnefatafl board.</p>
+                <p>For games with boards larger than 11 × 11 cells, such as Halma, Chinese Checkers, Go or Hex, you’ll need to use smaller pieces, like Go stones, chess pawns, travel games' magnetic pieces or 8 mm cubes.</p>
                 <p>
                     Of course, you can also make the pieces yourself. For example, you can use 19 mm coin capsules with 10 mm × 2 mm neodymium magnets and a 0.75 in circle punch.
                     The 19 mm coin capsules have nearly the same external dimensions as the pieces in the Reversi/Othello set: 23.4 mm in diameter and 4.9 mm in height.
                 </p>
                 <p>You can also buy other magnetic sets, such as Go, Shogi, Xiangqi, and more.</p>
-                <p>For games with boards larger than 11 × 11 cells, such as Halma, Chinese Checkers, Go or Hex, you’ll need to use smaller pieces, like Go stones, chess pawns, travel games' magnetic pieces or 8 mm cubes.</p>
 
                 <h2>Links</h2>
                 <ul>
