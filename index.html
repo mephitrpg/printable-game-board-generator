@@ -213,7 +213,8 @@
                 <ul>
                     <li><a href="./templates/abstract games board template empty.psd">abstract games board template empty.psd</a></li>
                 </ul>
-                <table id="special-boards" class="special-boards">
+                <button type="button" id="special-boards-toggle" aria-controls="special-boards" aria-expanded="false">Show special boards table</button>
+                <table id="special-boards" class="special-boards" hidden>
                     <tr>
                         <th>Game</th>
                         <th class="special-board-column-start" colspan="2">A3</th>
@@ -258,6 +259,16 @@
                         specialBoards.append(tr);
                     });                
                 }</script>
+                <script>
+                    const specialBoardsToggle = document.getElementById('special-boards-toggle');
+                    const specialBoardsTable = document.getElementById('special-boards');
+                    specialBoardsToggle.addEventListener('click', () => {
+                        const isVisible = specialBoardsToggle.getAttribute('aria-expanded') === 'true';
+                        specialBoardsTable.hidden = isVisible;
+                        specialBoardsToggle.setAttribute('aria-expanded', String(!isVisible));
+                        specialBoardsToggle.textContent = isVisible ? 'Show special boards table' : 'Hide special boards table';
+                    });
+                </script>
                 
 
                 <h2>Game rules</h2>
